@@ -36,9 +36,6 @@ app.use("/", ssrRouter);
 app.set('view engine', 'ejs'); // ejs 사용을 위해 view engine 에 ejs set
 // app.use(express.static(__dirname + '/public'));
 
-
-// server 시작
-// port 뒤에 () <- 2번째 인자 값은 서버가 켜진 뒤 호출된다
 app.listen(port, () => {
     console.log(port, "포트로 서버가 켜졌어요!")
 });
