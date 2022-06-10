@@ -12,10 +12,10 @@ const BoardSchema = mongoose.Schema(
     { timestamps: true }
 );
 
-const Article = mongoose.model('Article', BlogSchema);
+const Article = mongoose.model('Article', BoardSchema);
 
-BlogSchema.virtual('articleId').get(function () { return this._id.toHexString(); });
-BlogSchema.set('toJSON', { virtuals: true });
+BoardSchema.virtual('articleId').get(function () { return this._id.toHexString(); });
+BoardSchema.set('toJSON', { virtuals: true });
 
 async function getArticleList() {
     return Article.find().sort({ createdAt : 'desc' });

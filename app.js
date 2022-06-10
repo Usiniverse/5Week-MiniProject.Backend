@@ -7,6 +7,7 @@ const articleRouter = require('./router/contentRouter');
 const ssrRouter = require('./router/ssrRouter');
 const connectDB = require('./database/db');
 const reqLogMiddleware = require('./middlewares/request-log-middleware');
+const cookieParser = require("cookie-parser");
 
 // ============================
 // DB 연결 - log
@@ -23,6 +24,9 @@ const app = express();
 // body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//cookieparser
+app.use(cookieParser());
 
 // 미들웨어
 app.use(reqLogMiddleware);

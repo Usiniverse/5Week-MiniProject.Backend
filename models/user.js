@@ -1,41 +1,52 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const saltRounds = 10; //10자리로 암호화
 
-const UserSchema = mongoose.Schema(
-    {
-        email: String,
-        nickname: String,
-        password: String,
-        confirmPassword: String,
-    },
-);
+const UserSchema = new mongoose.Schema({
+  email: String,
+  nickname: String,
+  password: String,
+  confirmPassword: String,
+});
 
-UserSchema.virtual('authorId').get(function () { return this._id.toHexString(); });
-UserSchema.set('toJSON', { virtuals: true, });
+//비밀번호 암호화
+UserSchema.pre("save", function (next) {
+  const user = this;
 
-const User = mongoose.model('User', UserSchema);
+  // user가 password를 바꿀때만 hashing
+  if (user.isModified("password")) {
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+      if (err) {
+        return next(err);
+      }
 
-async function getUserByAuthorName(authorName)
-{
-    return User.find({ authorName });
-}
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        if (err) {
+          return next(err)
+        }
+        user.password = hash
+        next()
+      })
+    })
+  }
+});
+
+
+UserSchema.virtual("authorId").get(function () {
+  return this._id.toHexString();
+});
+UserSchema.set("toJSON", { virtuals: true });
+
+
+const User = mongoose.model("User", UserSchema);
 
 async function findById(id) {
-    return User.findById(id);
+  return User.findById(id);
+}
+async function createUser(user) {
+  return new User(user).save();
 }
 
-async function getUserByIdAndPs(authorName, password)
-{
-    return User.findOne({ authorName, password });
-}
-
-
-async function createUser(user)
-{
-    return new User(user).save();
-}
-
-
-module.exports.getUserByAuthorName = getUserByAuthorName;
+module.exports = mongoose.model("User", UserSchema);
 module.exports.findById = findById;
-module.exports.getUserByIdAndPs = getUserByIdAndPs;
 module.exports.createUser = createUser;
