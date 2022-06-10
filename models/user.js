@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema(
     {
-        userId: String,
+        email: String,
+        nickname: String,
         password: String,
         confirmPassword: String,
     },
-    { timestamps: true }
 );
 
 UserSchema.virtual('authorId').get(function () { return this._id.toHexString(); });

@@ -1,25 +1,45 @@
 const jwt = require("jsonwebtoken");
 const userDB = require("../models/user");
+const Joi = require("joi");
+ 
+const UserSchema = Joi.object({
+    email:
+    Joi.string()
+    .required()
+    .pattern(new RegExp('^[a-zA-Z0-9]+@+[0-9a-zA-Z-.]{3,30}$')),
+    nickname: Joi.string()
+        .required()
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    password: Joi.string().required().min(3),
+    confirmPassword: Joi.string().required().min(3),
+});
 
+//회원가입
 async function signUp (req, res) {
-    console.log(req.body);
-    const { authorName, password, confirmPassword } = req.body;
-
+    try{
+    const { email, nickname, password, confirmPassword } = await UserSchema.validateAsync(req.body);
     if (password !== confirmPassword) {
-        // 비밀번호, 비밀번호 확인 일치 여부 확인
-        return res.status(400).send({ errorMessage: '비밀번호와 비밀번호 확인의 내용이 일치하지 않습니다.', });
+         return res.status(400).send({ errorMessage: '비밀번호와 비밀번호 확인의 내용이 일치하지 않습니다.', });
     }
 
-    const existUsers = await userDB.getUserByAuthorName(authorName);
-    if (existUsers.length) {
-        // authorName 중복 데이터가 존재 할 경우
-        return res.status(400).send({errorMessage: '중복된 닉네임입니다.',});
+    const existUsers = await userDB.getUserByUserName(email);
+    if (existUsers.email) {
+        return res.status(400).send({errorMessage: '중복된 이메일입니다.',});
     }
 
-    await userDB.createUser({authorName, password});
+    else if (existUsers.nickname) {
+        return res.status(400).send({ errorMessage: '중복된 닉네임입니다.', });
+   }
+
+    await userDB.createUser({email,nickname, password});
 
     res.status(201).send({ message : "회원가입에 성공했습니다."});
+} catch(err) {
+    res.status(400).send({
+        errorMessage: '요청한 데이터 형식이 올바르지 않습니다.'
+    });
 }
+};
 
 async function login(req, res) {
     const { authorName, password } = req.body;
