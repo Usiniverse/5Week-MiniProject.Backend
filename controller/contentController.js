@@ -1,9 +1,9 @@
 // articleList
-const Article = require("../models/article");
+const Article = require("../models/content");
 const User = require("../models/user");
 const Comment = require("../models/comment");
 const userDB = require("../models/user");
-const articleDB = require("../models/article");
+const articleDB = require("../models/content");
 
 async function articleList(req, res) {
     const articles = await articleDB.getArticleList();

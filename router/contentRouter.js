@@ -1,9 +1,9 @@
 const express = require("express");
-const Article = require("../models/article");
+const Article = require("../models/content");
 const User = require("../models/user");
 const authMiddleware = require("../middlewares/auth-middleware");
 const Comment = require("../models/comment");
-const articleContoller = require("../controller/articleController")
+const articleContoller = require("../controller/contentController")
 
 const router = express.Router();
 
