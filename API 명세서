@@ -1,0 +1,104 @@
+// API 명세서
+회원가입 API
+Request
+- method : POST
+- Url : /signup
+- Body : { userId: String, password: String, confirmPassword: String }
+Response
+- HTTP Status Code : 201
+- Payload : { msg : 회원가입을 축하드립니다!}
+
+
+
+로그인 API
+Request
+- method : POST
+- Url : /login
+- Body : { userId, password }
+Response
+- HTTP Status Code : 200
+- Payload : { window.location.replace("/메인페이지URL") }
+
+
+
+게시글 목록 조회 API
+Request
+- Method: GET
+- URL: /content
+Response
+- HTTP Status Code: 200
+- Payload:{ articleId: number, title: string, content: string, userId: String, imageURL: String, Date: new Date }[] 
+
+
+
+게시글 작성 API
+Request
+- method : POST
+- Url : /content
+- Body : { userId: String, content: string, title: String, imageURL: String, Date: new Date }
+Response
+- HTTP Status Code : 201 
+- Payload : { msg: 글이 작성되었습니다! }
+
+
+
+게시글 상세 조회 API
+Request
+- Method: GET
+- URL: /content/:contentId
+Response
+- HTTP Status Code: 200
+- Payload:{ articleId: number, title: string, content: string, userId: String(+ 댓글), comment: String, Like:number, imageURL: String}
+
+
+
+게시글 수정 API
+Request
+- method : PUT
+- Url : /content/:contentId
+- Body : { userId: String, content: string, title: String, imageURL: String, Date: new Date }
+Response
+- HTTP Status Code : 201 
+- Payload : { msg: 글이 수정되었습니다! }
+
+
+
+게시글 삭제 API
+Request
+- Method: DELETE
+- URL: /content/:contentId
+Response
+- HTTP Status Code: 200
+- Payload:{ message: 삭제되었습니다! }
+
+
+
+댓글 작성 API
+Request
+- method : POST
+- Url : /comment
+- Body : { userId: String, comment: string, Date: new Date }
+Response
+- HTTP Status Code : 201 
+- Payload : { msg: 댓글이 작성되었습니다! }
+
+
+
+댓글 수정 API
+Request
+- method : POST
+- Url : /comment/:commentId
+- Body : { userId: String, comment: string, Date: new Date }
+Response
+- HTTP Status Code : 200
+- Payload : { msg: 댓글이 수정되었습니다! }
+
+
+
+댓글 삭제 API
+Request
+- Method: DELETE
+- URL: /comment/:commentId
+Response
+- HTTP Status Code: 200
+- Payload:{ message: 댓글이 삭제되었습니다! }
