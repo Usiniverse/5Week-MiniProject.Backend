@@ -37,16 +37,5 @@ UserSchema.virtual("authorId").get(function () {
 });
 UserSchema.set("toJSON", { virtuals: true });
 
-
-const User = mongoose.model("User", UserSchema);
-
-// async function findById(id) {
-//   return User.findById(id);
-// }
-async function createUser(user) {
-  return new User(user).save();
-}
-
 module.exports = mongoose.model("User", UserSchema);
-// module.exports.findById = findById;
-module.exports.createUser = createUser;
+

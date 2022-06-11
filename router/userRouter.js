@@ -1,6 +1,4 @@
 const express = require("express");
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/auth-middleware");
 const userController = require("../controller/userContoller");
 

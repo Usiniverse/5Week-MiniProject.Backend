@@ -1,7 +1,4 @@
-const express = require("express");
 const Content = require("../models/content");
-// const contentDB = require("../models/content");
-const User = require("../models/user");
 // const userDB = require("../models/user");
 // const Comment = require("../models/comment");
 
@@ -14,8 +11,9 @@ async function ContentList (req, res) {
 
 // 게시글 작성 API
 async function writeContent (req, res) {
-    const { nickname, title, content, imageURL, } = req.body;
-    console.log(req.body);
+    const {nickname} = res.locals.user;
+    const { title, content, imageURL } = req.body;
+
     
     const postContent = await Content.create({
         nickname, title, content, imageURL,
@@ -36,7 +34,7 @@ async function getModifyContent (req, res) {
 // 게시글 수정 API(put)
 async function modifyContent (req, res) {
     const { contentId } = req.params;
-    const { title, content, nickname } = req.body;
+    const { title, content } = req.body;
     const findContent = await Content.findById(contentId);
         
     const modifyPosting = await Content.findByIdAndUpdate(contentId, {

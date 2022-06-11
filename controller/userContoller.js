@@ -2,18 +2,17 @@ const jwt = require("jsonwebtoken");
 const userDB = require("../models/user");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
-const express = require("express");
 
 const UserSchema = Joi.object({
     email:
         Joi.string()
         .required()
-        .pattern(new RegExp('^[a-zA-Z0-9]+@+[0-9a-zA-Z-.]{3,30}$')),
+        .pattern(new RegExp('^[0-9a-zA-Z]+@+[0-9a-zA-Z]+.+[a-zA-Z]$')),
     
     nickname: 
         Joi.string()
         .required()
-        .pattern(new RegExp('^[a-zA-Z0-9$#-.@]{3,30}$')),
+        .pattern(new RegExp('^[0-9a-zA-Z@$!%#?&]{3,10}$')),
     
     password: 
         Joi.string()
@@ -46,8 +45,6 @@ async function signUp (req, res) {
         return res.status(400).send({ errorMessage: '중복된 닉네임입니다.', });
         }
 
-    // await userDB.createUser({email,nickname, password});
-
     res.status(201).send({ message : "회원가입에 성공했습니다."});
 
     const users = new userDB({ email, nickname, password });
@@ -70,23 +67,18 @@ async function login(req, res) {
         return res.status(400).send({errorMessage: "이메일이나 비밀번호가 올바르지 않습니다."})
     }
 
-       //비밀번호까지 맞다면 토큰을 생성하기
-        const id = user.authorId;
-        const token = jwt.sign({ id }, "yushin-secret-key");
-        res.status(200).send({ message : "로그인에 성공했습니다." , token });
+       //비밀번호까지 맞다면 토큰을 생성하기.
+        const token = jwt.sign({ authorId: user.authorId }, "yushin-secret-key");
+         res.status(200).send({ message : "로그인에 성공했습니다." , token });
     }
 
-
+//사용자 인증
 async function checkMe(req, res) {
     const { user } = res.locals;
-    console.log(user);
     res.send({
-        user: {
-            authorId: user.authorId,
-            authorName: user.authorName,
-        },
+      user,
     });
-}
+  };
 
 
 module.exports.signUp = signUp;
