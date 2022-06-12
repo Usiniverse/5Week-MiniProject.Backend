@@ -4,9 +4,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const userRouter = require('./router/userRouter');
 const ContentRouter = require('./router/contentRouter');
+const LikeController = require('./router/likeRouter');
 const connectDB = require('./database/db');
 const reqLogMiddleware = require('./middlewares/request-log-middleware');
-const cookieParser = require("cookie-parser");
+
 const port = 8080;
 
 const corsOption = {
@@ -37,6 +38,7 @@ app.use(cors(corsOption));
 // 라우터 등록
 app.use("/users", userRouter);
 app.use("/content", ContentRouter);
+app.use("/like", LikeController);
 
 app.listen(port, () => {
     console.log(port, "포트로 서버가 켜졌어요!")
