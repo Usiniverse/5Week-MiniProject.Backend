@@ -18,7 +18,7 @@ async function like(req, res) {
             contentId,
           });
     
-          return res.status(201).json({ result: "success", msg: "좋아요 완료!" });
+          return res.status(201).json({ like, msg: "좋아요 완료!" });
    }
 
 //좋아요 조회
@@ -39,7 +39,7 @@ async function deletelike(req, res) {
   }
 
   const unLike = await Like.findByIdAndDelete(findLike);
-  res.status(200).json({ result: "success", msg: "좋아요 취소 완료!" });
+  res.status(200).json({ unLike, msg: "좋아요 취소 완료!" });
 }
 
 module.exports.like = like;
