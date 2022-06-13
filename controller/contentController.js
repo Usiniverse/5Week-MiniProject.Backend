@@ -56,7 +56,6 @@ async function deleteContent (req, res) {
 
 module.exports.writeContent = writeContent;
 module.exports.ContentList = ContentList;
-module.exports.getModifyContent = getModifyContent;
 module.exports.modifyContent = modifyContent;
 module.exports.deleteContent = deleteContent;
 // module.exports.getContent = getContent;
