@@ -15,7 +15,7 @@ async function postcom(req, res) {
 
 
 async function getcom (req, res)  {
-    const comment = await Comment.find({contentId,})
+    const comment = await Comment.find({})
         .sort("-updateAt")
     
     res.status(201).json({
