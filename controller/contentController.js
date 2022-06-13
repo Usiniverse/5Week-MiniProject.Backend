@@ -17,7 +17,7 @@ async function writeContent (req, res) {
         nickname, title, content, imageURL,
     });
 
-    res.status(201).json({ result: 'success', msg: '글이 작성되었습니다!', });
+    res.status(201).json({ postContent, msg: '글이 작성되었습니다!', });
 };
 
 // 게시글 수정 API(get)
@@ -38,7 +38,7 @@ async function modifyContent (req, res) {
         $set: { title: title, content: content },
     });
     res.status(201).json({
-        result: 'success',
+        modifyPosting,
         msg: '글이 수정되었습니다.',
     });
 };
