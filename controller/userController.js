@@ -61,17 +61,11 @@ async function login(req, res) {
     const { email, password } = req.body;
     const user = await userDB.findOne({email});
 
-    if(!user){
-        return res.status(400).send({errorMessage: "회원정보가 없습니다!"});
-    }
 
     const userCompared = await bcrypt.compare(password, user.password);
-
-       if(!userCompared){
+    if(!userCompared){
         return res.status(400).send({errorMessage: "이메일이나 비밀번호가 올바르지 않습니다."})
     }
-    
-    
 
        //비밀번호까지 맞다면 토큰을 생성하기.
         const token = jwt.sign({ authorId: user.authorId }, "yushin-secret-key");
