@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/:contentId',authMiddleware , likeController.like);
 
 
-router.get('/:contentId', likeController.totalLike);
+router.get('/', likeController.totalLike);
 
 
 router.delete('/:contentId/:likeId', authMiddleware, likeController.deletelike);
