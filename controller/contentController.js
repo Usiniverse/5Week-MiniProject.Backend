@@ -20,18 +20,12 @@ async function writeContent (req, res) {
     res.status(201).json({ postContent, msg: '글이 작성되었습니다!', });
 };
 
-// 게시글 수정 API(get)
-async function getModifyContent (req, res) {
-    const { contentId } = req.body;
-    
-    const content = await Content.findOne({ contentId });
-    res.status(200).send({ content: content });
-};
 
-// 게시글 수정 API(put)
+
+// 게시글 수정 API(patch)
 async function modifyContent (req, res) {
     const { contentId } = req.params;
-    const { title, content } = req.body;
+    const { title, content, imageURL } = req.body;
     const findContent = await Content.findById(contentId);
         
     const modifyPosting = await Content.findByIdAndUpdate(contentId, {
