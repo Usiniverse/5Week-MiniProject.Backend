@@ -61,6 +61,9 @@ async function login(req, res) {
     const { email, password } = req.body;
     const user = await userDB.findOne({email});
 
+     if(!user){
+        return res.status(400).send({errorMessage: "회원정보가 없습니다!"});
+    }
 
     const userCompared = await bcrypt.compare(password, user.password);
     if(!userCompared){
