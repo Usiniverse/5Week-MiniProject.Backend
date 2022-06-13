@@ -6,7 +6,7 @@ const ContentSchema = mongoose.Schema(
         nickname: String,
         title : String,
         content: String,
-        imageURL : String,
+        imageURL : [String],
     },
     { timestamps: true }
 );
