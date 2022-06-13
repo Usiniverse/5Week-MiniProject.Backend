@@ -37,6 +37,9 @@ app.use(reqLogMiddleware);
 app.use(cors(corsOption));
 
 // 라우터 등록
+app.get("/", (req,res)=> {
+    res.send("Backend Server")
+});
 app.use("/users", userRouter);
 app.use("/content", ContentRouter);
 app.use ("/comment", commentRouter);
