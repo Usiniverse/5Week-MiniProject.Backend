@@ -29,7 +29,7 @@ async function modifyContent (req, res) {
     const findContent = await Content.findById(contentId);
         
     const modifyPosting = await Content.findByIdAndUpdate(contentId, {
-        $set: { title: title, content: content },
+        $set: { title: title, content: content, imageURL: imageURL },
     });
     res.status(201).json({
         modifyPosting,
