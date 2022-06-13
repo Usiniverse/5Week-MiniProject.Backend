@@ -23,8 +23,7 @@ async function like(req, res) {
 
 //좋아요 조회
 async function totalLike(req, res) {
-    const { contentId } = req.params;
-  const findAllLike = await Like.find({contentId});
+  const findAllLike = await Like.find();
   res.status(200).json(findAllLike);
 }
 
