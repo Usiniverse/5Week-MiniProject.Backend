@@ -10,7 +10,7 @@ async function postcom(req, res) {
         contentId
     });
     console.log(contentcomment);
-    res.status(201).json({ result: "success", msg: "댓글이 등록되었습니다." });
+    res.status(201).json({ contentcomment, msg: "댓글이 등록되었습니다." });
 };
 
 
@@ -26,12 +26,9 @@ async function getcom (req, res)  {
         comment,
     });
 
-    // res.json;
-    // res.status(201).json();
 };
 
 async function patchcom (req, res)  {
-    //db에서 commnet.nickname이랑 nickname 일치하는지 확인하고 commnetId찾아서 (중요) 해결.
     const { commentId } = req.params;
     const { fixedCommentContent } = req.body;
 
@@ -52,12 +49,11 @@ async function patchcom (req, res)  {
         $set: { comment: fixedCommentContent },
     });
     res.status(201).json({
-        result: "success",
+        fixedComment,
         msg: "댓글이 수정되었습니다.",
     });
     } else {
     res.status(400).json({
-        result: "error",
         msg: "댓글 수정에 실패했습니다.",
         });
     };
