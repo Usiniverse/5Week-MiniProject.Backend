@@ -1,5 +1,6 @@
 const Content = require("../models/content");
 const Comment = require("../models/comment");
+const moment = require("moment");
 
 // 게시글 목록 조회 API
 async function ContentList (req, res) {
@@ -12,9 +13,11 @@ async function ContentList (req, res) {
 async function writeContent (req, res) {
     const { nickname } = res.locals.user;
     const { title, content, imageURL } = req.body;
+    
+    const nDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
     const postContent = await Content.create({
-        nickname, title, content, imageURL,
+        nickname, title, content, imageURL, nDate
     });
 
     res.status(201).json({ postContent, msg: '글이 작성되었습니다!', });
