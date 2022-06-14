@@ -8,13 +8,15 @@ async function postcom(req, res) {
     const { comment } = req.body;
     const { contentId } = req.params;
     
-    const nDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    const createAt = moment().format('YYYY-MM-DD HH:mm:ss');
+    const updateAt = moment().format('YYYY-MM-DD HH:mm:ss');
     
     const contentcomment = await Comment.create({
         comment,
         nickname,
         contentId,
-        nDate,
+        createAt,
+        updateAt
     });
     
     res.status(201).json({ contentcomment, msg: "댓글이 등록되었습니다." });
@@ -35,7 +37,7 @@ async function patchcom(req, res) {
   const { comment } = req.body;
   const findComment = await Comment.findById(commentId);
     
-  const nDate = moment().format('YYYY-MM-DD HH:mm:ss');
+  const updateAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
   try {
     if (findComment === null || nickname !== findComment.nickname) {
@@ -43,9 +45,9 @@ async function patchcom(req, res) {
     }
 
     const fixedComment = await Comment.findByIdAndUpdate(commentId, {
-      $set: { comment: comment },
+      $set: { comment: comment, updateAt: updateAt },
     });
-     res.status(201).json({ fixedComment, nDate, msg: "댓글이 수정되었습니다." });
+     res.status(201).json({ fixedComment, msg: "댓글이 수정되었습니다." });
 
   } catch (err) {
     res.status(400).json({ errorMessage: "댓글 수정에 실패하였습니다." });
