@@ -57,9 +57,10 @@ async function deleteContent (req, res) {
 async function SearchContent (req,res) {
     const { value } = req.body;
     const SearchContent = await Content.find({ content: new RegExp(value) });
+    console.log(SearchContent)
 
-    if(!SearchContent || SearchContent[0] === undefined) {
-        return res.status(400).json({errorMessage: "게시물이 존재하지 않습니다."})
+    if(!SearchContent || SearchContent[0] === undefined || value === "") {
+         return res.status(400).json({errorMessage: "검색 옵션이 없습니다."})
     } 
 
     if(SearchContent){
