@@ -60,7 +60,7 @@ async function SearchContent (req,res) {
     .find({ content: new RegExp(value) })
     .sort({ createdAt : 'desc' });
 
-    if(!SearchContent || SearchContent[0] === undefined || value === "") {
+    if(!SearchContent || SearchContent[0] === undefined || value === "" || !value) {
          return res.status(400).json({errorMessage: "검색 옵션이 없습니다."})
     } 
 
