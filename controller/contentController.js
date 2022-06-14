@@ -68,7 +68,6 @@ async function SearchContent (req,res) {
 module.exports.SearchContent = SearchContent;
 module.exports.writeContent = writeContent;
 module.exports.ContentList = ContentList;
-module.exports.getModifyContent = getModifyContent;
 module.exports.modifyContent = modifyContent;
 module.exports.deleteContent = deleteContent;
 
