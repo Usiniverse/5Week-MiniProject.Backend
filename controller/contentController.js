@@ -55,7 +55,7 @@ async function deleteContent (req, res) {
 
 //게시물 검색기능
 async function SearchContent (req,res) {
-    const { value } = req.body;
+    const {value} = req.query;
     const SearchContent = await Content
     .find({ content: new RegExp(value) })
     .sort({ createdAt : 'desc' });
