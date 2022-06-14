@@ -4,74 +4,62 @@ async function postcom(req, res) {
     const { nickname } = res.locals.user;
     const { comment } = req.body;
     const { contentId } = req.params;
+    
     const contentcomment = await Comment.create({
         comment,
         nickname,
         contentId
     });
-    console.log(contentcomment);
+    
     res.status(201).json({ contentcomment, msg: "댓글이 등록되었습니다." });
 };
 
 
 async function getcom (req, res)  {
     const { contentId } = req.params;
-    const comment = await Comment.find({contentId})
-        .sort("-updateAt")
-    
-    res.status(201).json({
-        comment,
-    });
-
+    const comment = await Comment.find({contentId}).sort("-updateAt")
+    res.status(201).json({comment});
 };
 
-async function patchcom (req, res)  {
-    const { commentId } = req.params;
-    const { fixedCommentContent } = req.body;
+//댓글 수정
+async function patchcom(req, res) {
+  const { nickname } = res.locals.user;
+  const { commentId } = req.params;
+  const { comment } = req.body;
+  const findComment = await Comment.findById(commentId);
 
-    // function timesetkr() {
-    //     const gettime = new Date(); 
-    //     const utcNow =
-    //     gettime.getTime() + gettime.getTimezoneOffset() * 60 * 1000;
-    //     const koreaTimeDiff = 9 * 60 * 60 * 1000;
-    //     const krtime = new Date(utcNow + koreaTimeDiff);
-    // }
-    // timesetkr();
-    // if (krtime !== comment.updateAt) {
-    //     await Comment.findByIdAndUpdate(updateAt, { krtime });
-    // }
+  try {
+    if (findComment === null || nickname !== findComment.nickname) {
+      return res.status(400).json({ errorMessage: "접근 권한이 없습니다!" });
+    }
 
-    if (commentId) {
     const fixedComment = await Comment.findByIdAndUpdate(commentId, {
-        $set: { comment: fixedCommentContent },
+      $set: { comment: comment },
     });
-    res.status(201).json({
-        fixedComment,
-        msg: "댓글이 수정되었습니다.",
-    });
-    } else {
-    res.status(400).json({
-        msg: "댓글 수정에 실패했습니다.",
-        });
-    };
-};
+     res.status(201).json({ fixedComment, msg: "댓글이 수정되었습니다." });
+
+  } catch (err) {
+    res.status(400).json({ errorMessage: "댓글 수정에 실패하였습니다." });
+  }
+}
 
 // *** 댓글 삭제 API
-async function delcom (req, res) {
-const { commentId } = req.params;
+async function delcom(req, res) {
+  const { nickname } = res.locals.user;
+  const { commentId } = req.params;
+  const findComment = await Comment.findById(commentId);
 
-if (Comment) {
+  if (findComment === null) {
+    return res.status(400).json({ errorMessage: "접근 권한이 없습니다!" });
+  }
+
+  if (findComment !== null && nickname === findComment.nickname) {
     await Comment.findByIdAndDelete(commentId); // commentId 일치하는 것으로 삭제
     res.status(200).json({
-        result: "success",
-        msg: "코멘트가 삭제되었습니다.",
+      result: "success",
+      msg: "코멘트가 삭제되었습니다.",
     });
-} else {
-    res.status(400).json({
-        result: "error",
-        msg: "코멘트가 정상적으로 삭제되지 않았습니다.",
-        });
-    }
+  }
 };
 
 
