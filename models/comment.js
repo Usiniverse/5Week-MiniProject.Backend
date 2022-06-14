@@ -18,6 +18,7 @@ const CommentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    nDate : String
   }
   /*{
     toJSON: { virtuals: true },
