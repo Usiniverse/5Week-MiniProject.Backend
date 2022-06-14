@@ -14,10 +14,11 @@ async function writeContent (req, res) {
     const { nickname } = res.locals.user;
     const { title, content, imageURL } = req.body;
     
-    const nDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    const createAt = moment().format('YYYY-MM-DD HH:mm:ss');
+    const updateAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
     const postContent = await Content.create({
-        nickname, title, content, imageURL, nDate
+        nickname, title, content, imageURL, createAt, updateAt
     });
 
     res.status(201).json({ postContent, msg: '글이 작성되었습니다!', });
@@ -33,14 +34,14 @@ async function modifyContent (req, res) {
     const findContent = await Content.findById(contentId);
     console.log(findContent)
     
-    const nDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    const updateAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
     if(nickname !== findContent.nickname){
         await res.status(400).json({errorMessage : "접근 권한이 없습니다!"})
     }
         
     const modifyPosting = await Content.findByIdAndUpdate(contentId, {
-        $set: { title: title, content: content, nDate: nDate },
+        $set: { title: title, content: content, updateAt: updateAt },
     });
     res.status(201).json({
         modifyPosting,
