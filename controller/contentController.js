@@ -27,12 +27,18 @@ async function writeContent (req, res) {
 
 // 게시글 수정 API(patch)
 async function modifyContent (req, res) {
+    const { nickname } = res.locals.user
     const { contentId } = req.params;
-    const { title, content, imageURL } = req.body;
+    const { title, content } = req.body;
     const findContent = await Content.findById(contentId);
+    console.log(findContent)
+
+    if(nickname !== findContent.nickname){
+        await res.status(400).json({errorMessage : "접근 권한이 없습니다!"})
+    }
         
     const modifyPosting = await Content.findByIdAndUpdate(contentId, {
-        $set: { title: title, content: content, imageURL: imageURL },
+        $set: { title: title, content: content },
     });
     res.status(201).json({
         modifyPosting,
@@ -43,8 +49,13 @@ async function modifyContent (req, res) {
 
 // 게시글 삭제 API
 async function deleteContent (req, res) {
+    const { nickname } = res.locals.user
     const { contentId } = req.params;
     const findContent = await Content.findById(contentId);
+
+    if(nickname !== findContent.nickname){
+        return res.status(400).json({errorMessage : "접근 권한이 없습니다!"})
+    }
 
     if (findContent) {
         await Comment.deleteMany({ contentId:contentId });
