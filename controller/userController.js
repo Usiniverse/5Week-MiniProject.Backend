@@ -80,9 +80,12 @@ async function login(req, res) {
 async function checkMe(req, res) {
     const { user } = res.locals;
     res.send({
-        user,
+      user:{
+        nickname: user.nickname,
+        email: user.email
+      }
     });
-    };
+  };
 
 
 module.exports.signUp = signUp;
