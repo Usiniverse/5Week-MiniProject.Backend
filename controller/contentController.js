@@ -29,11 +29,8 @@ async function writeContent (req, res) {
 async function modifyContent (req, res) {
     const { nickname } = res.locals.user
     const { contentId } = req.params;
-    const { title, content } = req.body;
+    const { title, content, updateAt } = req.body;
     const findContent = await Content.findById(contentId);
-    console.log(findContent)
-    
-    const updateAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
     if(nickname !== findContent.nickname){
         await res.status(400).json({errorMessage : "접근 권한이 없습니다!"})
