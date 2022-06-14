@@ -1,5 +1,8 @@
 const Comment = require("../models/comment");
+const moment = require("moment");
+require("moment-timezone");
 
+//댓글 작성
 async function postcom(req, res) {
     const { nickname } = res.locals.user;
     const { comment } = req.body;
@@ -18,6 +21,7 @@ async function postcom(req, res) {
 };
 
 
+//댓글 조회
 async function getcom (req, res)  {
     const { contentId } = req.params;
     const comment = await Comment.find({contentId}).sort("-updateAt")
@@ -69,8 +73,6 @@ async function delcom(req, res) {
 
 
 module.exports.postcom = postcom;
-//module.exports.commentList = commentList;
 module.exports.patchcom = patchcom;
-//module.exports.getpatchedcom = getpatchedcom;
 module.exports.delcom = delcom;
 module.exports.getcom = getcom;
