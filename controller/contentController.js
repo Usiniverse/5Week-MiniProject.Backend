@@ -53,7 +53,18 @@ async function deleteContent (req, res) {
     }
 };
 
+//게시물 검색기능
+async function SearchContent (req,res) {
+    const { value } = req.body;
+    const SearchContent = await Content.find({ content: new RegExp(value) });
 
+    if(!SearchContent){
+        return res.status(400).json({errorMessage: "게시물이 존재하지 않습니다."})
+    }
+
+    res.status(200).send({SearchContent, msg: "검색완료!"})
+
+module.exports.SearchContent = SearchContent;
 module.exports.writeContent = writeContent;
 module.exports.ContentList = ContentList;
 module.exports.modifyContent = modifyContent;
