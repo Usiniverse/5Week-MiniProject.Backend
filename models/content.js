@@ -21,7 +21,7 @@ ContentSchema.virtual('contentId').get(function () {
 ContentSchema.set('toJSON', { virtuals: true });
 
 async function getContentList() {
-    return Content.find();
+    return Content.find().sort({ CreateAt : 'desc' });;
 }
 
 const Content = mongoose.model('Content', ContentSchema);
