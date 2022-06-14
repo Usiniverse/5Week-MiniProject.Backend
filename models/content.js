@@ -9,7 +9,6 @@ const ContentSchema = mongoose.Schema(
         imageURL : [String],
         nDate : String
     },
-    { timestamps: true }
 );
 
 // const Content = mongoose.model('Content', ContentSchema);
