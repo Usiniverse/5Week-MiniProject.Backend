@@ -58,11 +58,13 @@ async function SearchContent (req,res) {
     const { value } = req.body;
     const SearchContent = await Content.find({ content: new RegExp(value) });
 
-    if(!SearchContent){
+    if(!SearchContent || []) {
         return res.status(400).json({errorMessage: "게시물이 존재하지 않습니다."})
-    }
+    } 
 
-    res.status(200).send({SearchContent, msg: "검색완료!"})
+    if(SearchContent){
+        return res.status(200).send({SearchContent, msg: "검색완료!"})
+    };
 };
 
 module.exports.SearchContent = SearchContent;
