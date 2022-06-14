@@ -7,6 +7,7 @@ const ContentSchema = mongoose.Schema(
         title : String,
         content: String,
         imageURL : [String],
+        nDate : String
     },
     { timestamps: true }
 );
