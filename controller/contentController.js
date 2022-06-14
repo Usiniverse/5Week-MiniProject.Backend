@@ -12,14 +12,13 @@ async function ContentList (req, res) {
 // 게시글 작성 API
 async function writeContent (req, res) {
     const { nickname } = res.locals.user;
-    const { title, content, imageURL } = req.body;
-    
-    const createAt = moment().format('YYYY-MM-DD HH:mm:ss');
-    const updateAt = moment().format('YYYY-MM-DD HH:mm:ss');
+     const { title, content, imageURL, CreateAt, updateAt} = req.body;
+
+    // const CreateAt = moment().format("YYYY-MM-DD HH:mm:ss");
+    // const updateAt = moment().format("YYYY-MM-DD HH:mm:ss");
 
     const postContent = await Content.create({
-        nickname, title, content, imageURL, createAt, updateAt
-    });
+        nickname, title, content, imageURL,  CreateAt, updateAt});
 
     res.status(201).json({ postContent, msg: '글이 작성되었습니다!', });
 };
