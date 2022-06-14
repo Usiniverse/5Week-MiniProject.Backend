@@ -7,7 +7,8 @@ const ContentSchema = mongoose.Schema(
         title : String,
         content: String,
         imageURL : [String],
-        nDate : String
+        createAt : String,
+        updateAt : String
     },
 );
 
