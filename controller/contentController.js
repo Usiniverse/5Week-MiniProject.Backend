@@ -63,13 +63,14 @@ async function SearchContent (req,res) {
     }
 
     res.status(200).send({SearchContent, msg: "검색완료!"})
+};
 
 module.exports.SearchContent = SearchContent;
 module.exports.writeContent = writeContent;
 module.exports.ContentList = ContentList;
+module.exports.getModifyContent = getModifyContent;
 module.exports.modifyContent = modifyContent;
 module.exports.deleteContent = deleteContent;
-// module.exports.getContent = getContent;
 
 
 
