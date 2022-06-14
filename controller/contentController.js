@@ -74,7 +74,7 @@ async function deleteContent (req, res) {
 async function SearchContent (req,res) {
     const {value} = req.query;
     const SearchContent = await Content
-    .find({ content: new RegExp(value) })
+    .find({ content: new RegExp(value) }).sort({ CreateAt : 'desc' });
 
     if(!SearchContent || SearchContent[0] === undefined || value === "" || !value) {
          return res.status(400).json({errorMessage: "검색 옵션이 없습니다."})
