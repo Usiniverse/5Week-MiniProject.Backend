@@ -8,7 +8,7 @@ async function ContentList (req, res) {
 
     const contentList = await Content
       .find({ content: new RegExp( page ) })
-      .sort({ createdAt : 'desc' })
+      .sort({ CreatedAt : 'desc' })
       .skip(page)
       .limit();
    
