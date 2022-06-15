@@ -6,6 +6,7 @@ require("moment-timezone");
 async function postcom(req, res) {
   const { nickname } = res.locals.user;
   const { comment } = req.body;
+  const { contentId } = req.params;
 
   const CreateAt = moment().format("YYYY-MM-DD HH:mm:ss");
   const UpdateAt = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -23,7 +24,9 @@ async function postcom(req, res) {
 
 //댓글조회
 async function getcom(req, res) {
-  const comment = await Comment.findById(contentId).sort("-updateAt");
+  const { contentId } = req.params;
+
+  const comment = await Comment.find({ contentId }).sort("-updateAt");
 
   res.status(201).json({
     comment,
@@ -76,4 +79,3 @@ module.exports.postcom = postcom;
 module.exports.patchcom = patchcom;
 module.exports.delcom = delcom;
 module.exports.getcom = getcom;
-
