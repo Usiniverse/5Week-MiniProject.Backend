@@ -26,7 +26,7 @@ async function writeContent (req, res) {
 async function modifyContent (req, res) {
     const { nickname } = res.locals.user
     const { contentId } = req.params;
-    const { title, content, updateAt, [imageURL] } = req.body;
+    const { title, content, updateAt, imageURL } = req.body;
     const findContent = await Content.findById(contentId);
 
     if(nickname !== findContent.nickname){
