@@ -34,7 +34,7 @@ async function modifyContent (req, res) {
     }
         
     const modifyPosting = await Content.findByIdAndUpdate(contentId, {
-        $set: { title: title, content: content, updateAt: updateAt, [imageURL]: imageURL },
+        $set: { title: title, content: content, updateAt: updateAt, imageURL: imageURL },
     });
     res.status(201).json({
         modifyPosting,
