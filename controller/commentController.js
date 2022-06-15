@@ -5,7 +5,7 @@ require("moment-timezone");
 //댓글 작성
 async function postcom(req, res) {
   const { nickname } = res.locals.user;
-  const { comment, contentId } = req.body;
+  const { comment } = req.body;
 
   const CreateAt = moment().format("YYYY-MM-DD HH:mm:ss");
   const UpdateAt = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -23,8 +23,7 @@ async function postcom(req, res) {
 
 //댓글조회
 async function getcom(req, res) {
-
-  const comment = await Comment.find().sort("-updateAt");
+  const comment = await Comment.findById(contentId).sort("-updateAt");
 
   res.status(201).json({
     comment,
@@ -34,7 +33,8 @@ async function getcom(req, res) {
 //댓글 수정
 async function patchcom(req, res) {
   const { nickname } = res.locals.user;
-  const { comment, commentId } = req.body;
+  const { commentId } = req.params;
+  const { comment } = req.body;
 
   const findComment = await Comment.findById(commentId);
   const UpdateAt = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -56,7 +56,7 @@ async function patchcom(req, res) {
 // *** 댓글 삭제 API
 async function delcom(req, res) {
   const { nickname } = res.locals.user;
-  const { commentId } = req.body;
+  const { commentId } = req.params;
   const findComment = await Comment.findById(commentId);
 
   if (findComment === null) {
@@ -76,3 +76,4 @@ module.exports.postcom = postcom;
 module.exports.patchcom = patchcom;
 module.exports.delcom = delcom;
 module.exports.getcom = getcom;
+
