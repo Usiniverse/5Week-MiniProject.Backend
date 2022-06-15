@@ -12,7 +12,7 @@
 ![2022-06-15 23;58;34](https://user-images.githubusercontent.com/96379177/173859549-afe84c24-0a82-44c2-bc83-de0b769ee268.PNG)
 
 * M : model로 데이터를 처리한다. 우리는 이 것을 스키마로 배웠고 Model안에 데이터 처리 기준인 Schema를 작성하였다.
-Schema에는 String일지 Number일지 정해야한다.
+Schema에는 String일지, Number일지, 자료형 또한 정해야한다.
 
 * V : view에서 우리에게 보여지는 곳을 처리한다.
 주로 jsp파일로 이루어져서 app.js 혹은 랜더링 라우터를 활용하여 서버와 연결한다.
@@ -32,3 +32,11 @@ API의 기능을 여기서 구현하였으며 유저 관련 기능, 게시물 �
 * model 내 스키마 및 DB와의 연동을 통해 데이터를 조회하고 수정하게 된다. 
 * 필요에 따라 request를 parmas로 받을지, query로 받을지, schema를 통한 body로 받을지 정했다.
 * view는 프론트와 res, req ID값을 맞추어 데이터를 주고 받게끔 했다.
+
+------------------
+## 4. 그 외 기타 기능 구현
+* 인증미들웨어(usercontroller > checkMe, authMiddleware)의 역할을 이해하였고, 로컬 스토래지 안에 어떤 정보를 담아서 전달해야하는지 확인하고 이에 따라 발생하는 에러 또한 수정하였다.
+* bcrypt를 활용하여 패스워드를 암호화했다.
+* Joi를 활용하여 회원가입에서 필요한 아이디, 패스워드의 형식을 설정했다.
+* moment를 활용하여 GMT 시간을 한국 시간으로 출력했다.
+* 기능에 따라 파일을 분류한 만큼 각각 export, router로 연결하여 가독성을 높였다.
