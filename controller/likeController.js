@@ -22,23 +22,17 @@ async function like(req, res) {
    }
 
 //좋아요 조회
-async function totalLike(req, res) {
-  const { contentId } = req.params;
-  const findAllLike = await Like.find({contentId});
-  res.status(200).json(findAllLike);
-}
-
-//좋아요 취소
 async function deletelike(req, res) {
   const { nickname } = res.locals.user;
+  const { contentId } = req.params;
 
-  const findLike = await Like.findOne({ nickname });
+  const findLike = await Like.findOne({ contentId, nickname });
 
   if (!findLike) {
-    res.status(400).send({ errorMessage: "좋아요를 하지 않았습니다." });
+    return res.status(400).send({ errorMessage: "좋아요를 하지 않았습니다." });
   }
 
-  const unLike = await Like.findByIdAndDelete(findLike);
+  const unLike = await Like.deleteOne(findLike);
   res.status(200).json({ unLike, msg: "좋아요 취소 완료!" });
 }
 
