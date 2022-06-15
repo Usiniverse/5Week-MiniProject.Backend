@@ -4,9 +4,14 @@ const moment = require("moment");
 
 // 게시글 목록 조회 API
 async function ContentList (req, res) {
-   const { page } = req.query;
+    const { page } = req.query;
 
-    const contentList = await Content.getContentList().skip(page).limit(4);
+    const contentList = await Content
+      .find({ content: new RegExp( page ) })
+      .sort({ createdAt : 'desc' })
+      .skip(page)
+      .limit(4);
+   
     res.status(200).json( contentList );
 };
 
