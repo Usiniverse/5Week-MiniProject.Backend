@@ -6,7 +6,7 @@ async function like(req, res) {
   const { contentId } = req.params;
   console.log(contentId)
 
-  const findLike = await Like.findOne({ contentId });
+  const findLike = await Like.findOne({ contentId, nickname });
   console.log(findLike)
     for(let i=0; i<findLike.length; i++){
         if(contentId === findLike[i].contentId && nickname === findLike[i].nickname){
