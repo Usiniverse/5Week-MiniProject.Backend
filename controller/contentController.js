@@ -14,9 +14,6 @@ async function writeContent (req, res) {
     const { nickname } = res.locals.user;
      const { title, content, imageURL, CreateAt, updateAt} = req.body;
 
-    // const CreateAt = moment().format("YYYY-MM-DD HH:mm:ss");
-    // const updateAt = moment().format("YYYY-MM-DD HH:mm:ss");
-
     const postContent = await Content.create({
         nickname, title, content, imageURL,  CreateAt, updateAt});
 
