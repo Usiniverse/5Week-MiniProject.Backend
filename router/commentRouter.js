@@ -9,7 +9,7 @@ const commentController = require("../controller/commentController");
 router.post("/:contentId", authMiddleware, commentController.postcom);
 
 // get
-router.get("/:contentId", commentController.getcom);
+router.get("/", commentController.getcom);
 
 // patch
 router.patch("/:contentId/:commentId", authMiddleware, commentController.patchcom);
