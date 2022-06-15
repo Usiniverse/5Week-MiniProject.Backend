@@ -9,7 +9,7 @@
 -------------------
 
 ## 2. MVC 모델
-![2022-06-15 23;58;34](https://user-images.githubusercontent.com/96379177/173859549-afe84c24-0a82-44c2-bc83-de0b769ee268.PNG)
+![2022-06-16 01;33;26](https://user-images.githubusercontent.com/96379177/173879380-c2933514-2b2c-4098-9dbc-65761e8fd57a.PNG)
 
 * M : model로 데이터를 처리한다. 우리는 이 것을 스키마로 배웠고 Model안에 데이터 처리 기준인 Schema를 작성하였다.
 Schema에는 String일지, Number일지, 자료형 또한 정해야한다.
