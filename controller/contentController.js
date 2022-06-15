@@ -30,7 +30,7 @@ async function writeContent (req, res) {
 async function modifyContent (req, res) {
     const { nickname } = res.locals.user
     const { contentId } = req.params;
-    const { title, content, updateAt } = req.body;
+    const { title, content, updateAt, imageURL } = req.body;
     const findContent = await Content.findById(contentId);
 
     if(nickname !== findContent.nickname){
@@ -38,7 +38,7 @@ async function modifyContent (req, res) {
     }
         
     const modifyPosting = await Content.findByIdAndUpdate(contentId, {
-        $set: { title: title, content: content, updateAt: updateAt },
+        $set: { title: title, content: content, updateAt: updateAt, imageURL: imageURL },
     });
     res.status(201).json({
         modifyPosting,
