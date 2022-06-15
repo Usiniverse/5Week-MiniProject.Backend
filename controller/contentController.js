@@ -10,7 +10,7 @@ async function ContentList (req, res) {
       .find({ content: new RegExp( page ) })
       .sort({ createdAt : 'desc' })
       .skip(page)
-      .limit(4);
+      .limit();
    
     res.status(200).json( contentList );
 };
