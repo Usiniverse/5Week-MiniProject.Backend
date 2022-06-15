@@ -1,4 +1,4 @@
-# 5Week-MiniProject.Backend
+# 🤝 항대숲(항해 대나무 숲) - 1조 미니프로젝트
 
 ### 1. MVC 모델
 ![2022-06-15 23;58;34](https://user-images.githubusercontent.com/96379177/173859549-afe84c24-0a82-44c2-bc83-de0b769ee268.PNG)
