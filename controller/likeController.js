@@ -4,14 +4,13 @@ const Like = require("../models/like");
 async function like(req, res) {
   const { nickname } = res.locals.user;
   const { contentId } = req.params;
-  console.log(contentId)
 
   const findLike = await Like.findOne({ contentId, nickname });
-  console.log(findLike)
     for(let i=0; i<findLike.length; i++){
         if(contentId === findLike[i].contentId && nickname === findLike[i].nickname){
             return res.status(400).send({errorMessage: "이미 좋아요를 하셨습니다!"})
         }}
+ 
     
         const like = await Like.create({
             nickname,
@@ -22,6 +21,12 @@ async function like(req, res) {
    }
 
 //좋아요 조회
+async function totalLike(req, res) {
+  const findAllLike = await Like.find();
+  res.status(200).json(findAllLike);
+}
+
+//좋아요 취소
 async function deletelike(req, res) {
   const { nickname } = res.locals.user;
   const { contentId } = req.params;
