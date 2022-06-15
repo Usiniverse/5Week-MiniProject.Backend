@@ -13,8 +13,8 @@ const port = 8080;
 
 const corsOption = {
     origin: 
-    "http://localhost:3000",
-    "http://reactweek04.s3-website.ap-northeast-2.amazonaws.com/",
+    ["http://localhost:3000",
+    "http://reactweek04.s3-website.ap-northeast-2.amazonaws.com/"],
     credentials: true,
     };
 
