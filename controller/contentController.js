@@ -3,10 +3,8 @@ const Comment = require("../models/comment");
 const moment = require("moment");
 
 // 게시글 목록 조회 API
-const { page } = req.query;
-
 async function ContentList (req, res) {
-    const contentList = await Content.getContentList().skip(page).limit(4);
+    const contentList = await Content.getContentList();
     res.status(200).json( contentList );
 };
 
