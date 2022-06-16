@@ -18,7 +18,7 @@ const CommentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    createAt : String,
+    CreateAt : String,
     updateAt : String
   }
   /*{
