@@ -6,12 +6,9 @@ async function like(req, res) {
   const { contentId } = req.params;
 
   const findLike = await Like.findOne({ contentId, nickname });
-    for(let i=0; i<findLike.length; i++){
-        if(contentId === findLike[i].contentId && nickname === findLike[i].nickname){
+        if(findLike){
             return res.status(400).send({errorMessage: "이미 좋아요를 하셨습니다!"})
-        }}
- 
-    
+        }
         const like = await Like.create({
             nickname,
             contentId,
