@@ -12,7 +12,7 @@ const UserSchema = Joi.object({
     nickname: 
         Joi.string()
         .required()
-        .pattern(new RegExp('^[0-9a-zA-Z@$!%#?&]{3,10}$')),
+        .pattern(new RegExp('^[ㄱ-ㅎ가-힣0-9a-zA-Z@$!%#?&]{3,10}$')),
     
     password: 
         Joi.string()
