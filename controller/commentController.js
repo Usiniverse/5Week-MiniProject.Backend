@@ -26,7 +26,7 @@ async function postcom(req, res) {
 async function getcom(req, res) {
   const { contentId } = req.params;
 
-  const comment = await Comment.find({ contentId }).sort("-updateAt");
+  const comment = await Comment.find({ contentId }).sort({ CreateAt : 'desc' });
 
   res.status(201).json({
     comment,
