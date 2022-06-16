@@ -25,12 +25,11 @@ async function postcom(req, res) {
 //댓글조회
 async function getcom(req, res) {
   const { contentId } = req.params;
+  const comment = await Comment
+    .find({contentId})
+    .sort({ createAt : 'desc' });
 
-  const comment = await Comment.find({ contentId }).sort({ createAt : 'desc' });
-
-  res.status(201).json({
-    comment,
-  });
+  res.status(201).json({comment, msg: "댓글 조회 성공!"});
 }
 
 //댓글 수정
