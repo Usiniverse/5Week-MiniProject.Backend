@@ -8,14 +8,14 @@ async function postcom(req, res) {
   const { comment } = req.body;
   const { contentId } = req.params;
 
-  const CreateAt = moment().format("YYYY-MM-DD HH:mm:ss");
+  const createAt = moment().format("YYYY-MM-DD HH:mm:ss");
   const UpdateAt = moment().format("YYYY-MM-DD HH:mm:ss");
 
   const contentcomment = await Comment.create({
     comment,
     nickname,
     contentId,
-    CreateAt,
+    createAt,
     UpdateAt
   });
 
@@ -26,7 +26,7 @@ async function postcom(req, res) {
 async function getcom(req, res) {
   const { contentId } = req.params;
 
-  const comment = await Comment.find({ contentId }).sort({ CreateAt : 'desc' });
+  const comment = await Comment.find({ contentId }).sort({ createAt : 'desc' });
 
   res.status(201).json({
     comment,
