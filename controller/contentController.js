@@ -10,7 +10,7 @@ async function ContentList (req, res) {
     .find()
     .sort({ CreateAt : 'desc' })
     .skip(page)
-    .limit(1);
+    .limit(4);
    
     res.status(200).json( contentList );
 };
